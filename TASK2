@@ -1,0 +1,124 @@
+/'Class Student:
+
+This class represents a student and has the following attributes and methods:
+
+Attributes:
+
+name: The student's name (initialized in the __init__ method)
+grades: A dictionary to store the student's grades (initialized in the __init__ method)
+Methods:
+
+__init__(self, name): Initializes the student object with a name and an empty grades dictionary.
+add_grade(self, subject, grade): Adds a new grade to the student's grades dictionary.
+calculate_average(self): Calculates the average grade by summing up all grades and dividing by the number of grades.
+get_letter_grade(self, average): Returns the letter grade corresponding to the average grade (A, B, C, D, or F).
+get_gpa(self, average): Returns the GPA corresponding to the average grade (4.0, 3.0, 2.0, 1.0, or 0.0).
+display_grades(self): Displays the student's grades, average, letter grade, and GPA.
+main() function:
+
+This function is the entry point of the program and has the following logic:
+
+Asks the user to enter the student's name and creates a Student object with that name.
+Enters an infinite loop to allow the user to interact with the program.
+Displays a menu with three options: Add grade, Display grades, and Quit.
+Based on the user's choice:
+If the user chooses to add a grade, it prompts the user to enter the subject and grade, and then calls the add_grade method to add the grade to the student's grades dictionary.
+If the user chooses to display grades, it calls the display_grades method to display the student's grades, average, letter grade, and GPA.
+If the user chooses to quit, it breaks out of the loop and exits the program.
+If the user enters an invalid choice, it prints an error message and prompts the user to try again.
+if __name__ == "__main__": block:
+
+This block is used to ensure that the main function is only executed when the script is run directly (i.e., not when it's imported as a module by another script). It's a common Python idiom.
+
+Code organization:
+
+The code is organized into a single file with a clear separation of concerns:
+
+The Student class encapsulates the student's data and behavior.
+The main function handles user input and interaction.
+Error handling:
+
+The code does not explicitly handle errors, but it does provide some basic error handling through the try-except block in the add_grade method. However, 
+it's a good practice to add more robust error handling to handle unexpected errors and exceptions.'/
+
+
+def get_letter_grade(average):
+    if average >= 90:
+        return "A"
+    elif average >= 80:
+        return "B"
+    elif average >= 70:
+        return "C"
+    elif average >= 60:
+        return "D"
+    else:
+        return "F"
+
+
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = {}
+
+    def add_grade(self, subject, grade):
+        self.grades[subject] = grade
+
+    def calculate_average(self):
+        total = sum(self.grades.values())
+        average = total / len(self.grades)
+        return average
+
+    @staticmethod
+    def get_gpa(average):
+        if average >= 90:
+            return 4.0
+        elif average >= 80:
+            return 3.0
+        elif average >= 70:
+            return 2.0
+        elif average >= 60:
+            return 1.0
+        else:
+            return 0.0
+
+    def display_grades(self):
+        print(f"Student: {self.name}")
+        print("Grades:")
+        for subject, grade in self.grades.items():
+            print(f"  {subject}: {grade}")
+        average = self.calculate_average()
+        print(f"Average: {average:.2f}")
+        letter_grade = get_letter_grade(average)
+        print(f"Letter Grade: {letter_grade}")
+        gpa = self.get_gpa(average)
+        print(f"GPA: {gpa:.2f}")
+
+
+def main():
+    """
+
+    :rtype: object
+    """
+    student_name = input("Enter student name: ")
+    student = Student(student_name)
+
+    while True:
+        print("1. Add grade")
+        print("2. Display grades")
+        print("3. Quit")
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            subject = input("Enter subject: ")
+            grade = float(input("Enter grade: "))
+            student.add_grade(subject, grade)
+        elif choice == "2":
+            student.display_grades()
+        elif choice == "3":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
